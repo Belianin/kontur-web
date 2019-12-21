@@ -12,7 +12,7 @@ class Quiz {
         this.state = QUIZ_STATE_CREATED;
         this.users = [];
         this.answers = [];
-        this.currentQuestion = 0;
+        this.currentQuestion = -1;
     }
 }
 
