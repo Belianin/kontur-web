@@ -45,9 +45,6 @@ app.post("/join", (req, res) => {
         return
     }
     logic.addUserToQuiz(id, name);
-    if (name === 'admin') {
-        role = 'admin';
-    }
     setUserCookie(req, name, role, id);
     res.redirect("/quiz.html");
 });
@@ -56,8 +53,7 @@ app.post("/join", (req, res) => {
 app.post("/create", (req, res) => {
     const id = logic.createQuiz();
     setUserCookie(req, 'admin', 'admin', id);
-    // res.redirect('/admin.html');
-    res.send({id: id});
+    res.redirect('/admin.html');
 })
 
 
