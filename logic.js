@@ -45,5 +45,6 @@ function getQuizDataForUser(id) {
 module.exports = {
     checkQuizExists,
     checkQuizAcceptsUsers,
-    addUserToQuiz
+    addUserToQuiz,
+    getQuizDataForUser
 };
