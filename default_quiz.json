@@ -1,0 +1,47 @@
+{
+  "title": "Первый опрос в истории этого приложения",
+  "questions": [
+    {
+      "title": "*сложный впорос на миллион рублей*",
+      "options": [
+        {
+          "text": "Ответ 1",
+          "correct": false
+        },
+        {
+          "text": "Ответ 2",
+          "correct": true
+        },
+        {
+          "text": "Ответ 3",
+          "correct": false
+        },
+        {
+          "text": "Ответ 4",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "title": "*сложный впорос на 10 миллионов рублей*",
+      "options": [
+        {
+          "text": "Ответ 1",
+          "correct": false
+        },
+        {
+          "text": "Ответ 2",
+          "correct": false
+        },
+        {
+          "text": "Ответ 3",
+          "correct": false
+        },
+        {
+          "text": "Ответ 4",
+          "correct": true
+        }
+      ]
+    }
+  ]
+}
