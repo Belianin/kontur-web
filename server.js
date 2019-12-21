@@ -1,29 +1,20 @@
 const express = require("express");
-const expressWs = require('express-ws')(app);
 const session = require('express-session');
-const logic = require('logic.js');
+const logic = require('./logic');
 
 const app = express();
+const expressWs = require('express-ws')(app);
 const port = process.env.PORT || 5000;
 
 // APP USE
 app.use(express.static("static"));
 app.use(express.json());
-app.use(express.cookieDecoder());
 app.use(session({
     'secret': '1'
 }));
 
 
 // Logic
-
-function checkQuizById(id) {
-    return true;
-}
-
-function addUserToQuiz(id, name, cookie) {
-
-}
 
 function setUserCookie(req, name) {
     req.session.name = name;
