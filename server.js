@@ -73,7 +73,7 @@ app.ws("/quiz", (ws, req) => {
     ws.on('message', (message) => {
         if (isOwner(session)) {
             let type = JSON.parse(message).type;
-            if (!logic.isQuizFinished(session.key))
+            if (logic.isQuizFinished(session.key))
                 type = "end";
             let data = "";
             let mes = "";
