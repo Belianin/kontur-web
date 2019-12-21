@@ -62,7 +62,7 @@ function getQuizDataForUser(id) {
         number: quiz.currentQuestion,
         total: quiz.questions.length,
         question: {
-            text: question.text,
+            title: question.title,
             options: question.options.map(option => option.text)
         }
     };
