@@ -71,25 +71,30 @@ app.ws("/quiz", (ws, req) => {
         else
             data = logic.getQuizDataForUser(session.key);
         
-        ws.send(data);
+        ws.send(JSON.stringify(data));
     });
 
     ws.on('message', (message) => {
         if (isOwner(session)) {
             const type = JSON.parse(message).type;
             let data = "";
+            let mes = "";
             if (type === 'next') {
                 logic.nextQuestion(session.key);
                 data = logic.getQuizDataForUser(session.key);
-            } else if (type === 'end')
+                mes = {type: "next", payload: data};
+            } else if (type === 'end') {
                 data = logic.getResults(session.key);
-            else
+                mes = {type: "end", payload: data};
+            } else {
                 data = logic.getUsers(session.key);
+                mes = {type: "start", payload: data};
+            }
 
-            ws.send(JSON.stringify(logic.getQuizDataForUser(session.key))); // for Owner
+            // ws.send(JSON.stringify(logic.getQuizDataForUser(session.key))); // for Owner
             expressWs.getWss().clients.forEach(client => {
-                if (client !== ws && client.readyState === WebSocket.OPEN)
-                    client.send(JSON.stringify(data));
+                // if (client !== ws && client.readyState === WebSocket.OPEN)
+                    client.send(JSON.stringify(mes));
             });
         } else {
             const answer = JSON.parse(message).answer;
