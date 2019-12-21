@@ -1,6 +1,7 @@
 const express = require("express");
 const expressWs = require('express-ws')(app);
 const session = require('express-session');
+const logic = require('logic.js');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -25,7 +26,7 @@ function addUserToQuiz(id, name, cookie) {
 }
 
 function setUserCookie(req, name) {
-
+    req.session.name = name;
 }
 
 
@@ -37,13 +38,13 @@ app.post("/join", (req, res) => {
     const data = req.body;
     const id = data.id;
     const name = data.name;
-    if (!checkQuizById(id)) {
+    if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
         res.sendStatus(404);
         return
     }
-    addUserToQuiz(id, name, req.session.cookie);
+    logic.addUserToQuiz(id, name);
     setUserCookie(req, name);
-    res.redirect("/test");
+    res.redirect("/quiz");
 });
 
 
@@ -51,12 +52,15 @@ app.post("/join", (req, res) => {
 app.ws("/quiz", (ws, req) => {
     ws.on('message', (message) => {
         const type = JSON.parse(message).type;
-
-        // ws.
-
+        
+        ws.send(type);
     }); 
 });
 
+
+app.get('*', (req, res) => {
+    res.redirect('/')
+});
 
 
 // LISTEN
