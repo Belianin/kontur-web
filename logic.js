@@ -68,6 +68,16 @@ function getQuizDataForUser(id) {
     };
 }
 
+function getQuizDataForOwner(id) {
+    const quiz = quizes.get(id);
+    return {
+        id,
+        number: quiz.currentQuestion,
+        total: quiz.questions.length,
+        answered: quiz.answer[quiz.currentQuestion]
+    }
+}
+
 function saveAnswer(id, user, answer) {
     const quiz = quizes.get(id);
     const correct = quiz.questions[quiz.currentQuestion].options[answer].correct;
