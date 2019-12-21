@@ -35,10 +35,10 @@ app.post("/join", (req, res) => {
     let id = data.id;
     const name = data.name;
     let role = "user";
-    if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
-        res.sendStatus(404);
-        return
-    }
+    // if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
+    //     res.sendStatus(404);
+    //     return
+    // }
     logic.addUserToQuiz(id, name);
     if (name === 'admin') {
         role = 'admin';
