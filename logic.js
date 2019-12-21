@@ -79,7 +79,7 @@ function getQuizDataForOwner(id) {
         id,
         number: quiz.currentQuestion,
         total: quiz.questions.length,
-        answered: quiz.answer[quiz.currentQuestion]
+        answered: quiz.answers[quiz.currentQuestion]
     }
 }
 
