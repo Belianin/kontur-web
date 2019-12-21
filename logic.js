@@ -49,9 +49,10 @@ function nextQuestion(id) {
         quiz.state = QUIZ_STATE_STARTED;
     } else if (quiz.state === QUIZ_STATE_STARTED) {
         quiz.currentQuestion++;
-        quiz.answers.push(new Map());
         if (quiz.currentQuestion === quiz.questions.length)
             quiz.state = QUIZ_STATE_FINISHED;
+        else
+            quiz.answers.push(new Map());
     }
 }
 
@@ -68,9 +69,9 @@ function getQuizDataForUser(id) {
     };
 }
 
-function hasRemainingQuestions(id) {
+function isQuizFinished(id) {
     const quiz = quizes.get(id);
-    return quiz.currentQuestion < quiz.questions.length;
+    return quiz.state === QUIZ_STATE_FINISHED;
 }
 
 function getQuizDataForOwner(id) {
@@ -95,7 +96,7 @@ function getResults(id) {
 
 module.exports = {
     checkQuizExists,
-    checkQuizAcceptsUsers,
+    isQuizFinished,
     createQuiz,
     addUserToQuiz,
     nextQuestion,
