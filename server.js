@@ -40,13 +40,19 @@ app.post("/join", (req, res) => {
         return
     }
     logic.addUserToQuiz(id, name);
-    if (id === 'admin') {
+    if (name === 'admin') {
         role = 'admin';
-        id = 1;
     }
     setUserCookie(req, name, role, id);
     res.redirect("/quiz.html");
 });
+
+
+app.post("/create", (req, res) => {
+    const id = logic.createQuiz();
+    setUserCookie(req, 'admin', 'admin', id);
+    res.send(id);
+})
 
 
 /// Web-sockets
@@ -79,7 +85,7 @@ app.ws("/quiz", (ws, req) => {
             });
         } else {
             const answer = JSON.parse(message).answer;
-            logic.saveAnswer(answer, session);
+            logic.saveAnswer(id, name, answer);
         }
     }); 
 });
