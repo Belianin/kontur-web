@@ -58,12 +58,12 @@ app.post("/create", (req, res) => {
 /// Web-sockets
 app.ws("/quiz", (ws, req) => {
     const session = req.session;
-
+    let data = "";
     ws.on('connection', () => {
         if (isOwner(session))
-            const data = logic.getQuizDataForOwner(session.id);
+            data = logic.getQuizDataForOwner(session.id);
         else
-            const data = logic.getQuizDataForUser(session.id);
+            data = logic.getQuizDataForUser(session.id);
         
         ws.send(data);
     });
@@ -71,13 +71,14 @@ app.ws("/quiz", (ws, req) => {
     ws.on('message', (message) => {
         if (isOwner(session)) {
             const type = JSON.parse(message).type;
+            let data = "";
             if (type === 'next') {
                 logic.nextQuestion(session.id);
-                const data = logic.getQuizDataForUser(session.id);
+                data = logic.getQuizDataForUser(session.id);
             } else if (type === 'end')
-                const data = logic.getResults(session.id);
+                data = logic.getResults(session.id);
             else
-                const data = logic.getUsers(session.id);
+                data = logic.getUsers(session.id);
             ws.send(logic.getQuizDataForOwner(session.id));
             expressWs.getWss().clients.forEach(client => {
                 if (client !== ws && client.readyState === WebSocket.OPEN)

@@ -85,7 +85,6 @@ module.exports = {
     nextQuestion,
     getUsers,
     getQuizDataForUser,
-    getNextQuestion,
     saveAnswer,
     getResults
 };
