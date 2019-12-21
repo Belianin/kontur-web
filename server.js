@@ -29,12 +29,12 @@ app.post("/join", (req, res) => {
     const data = req.body;
     const id = data.id;
     const name = data.name;
-    if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
-        res.sendStatus(404);
-        return
-    }
-    logic.addUserToQuiz(id, name);
-    setUserCookie(req, name);
+    // if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
+    //     res.sendStatus(404);
+    //     return
+    // }
+    // logic.addUserToQuiz(id, name);
+    // setUserCookie(req, name);
     res.redirect("/quiz");
 });
 
