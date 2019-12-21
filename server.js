@@ -40,7 +40,7 @@ app.post("/join", (req, res) => {
     console.log(id);
     const name = data.name;
     let role = "user";
-    if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
+    if (!logic.checkQuizExists(id)) {
         res.sendStatus(404);
         return
     }
