@@ -68,6 +68,21 @@ function getQuizDataForUser(id) {
     };
 }
 
+function hasRemainingQuestions(id) {
+    const quiz = quizes.get(id);
+    return quiz.currentQuestion < quiz.questions.length;
+}
+
+function getQuizDataForOwner(id) {
+    const quiz = quizes.get(id);
+    return {
+        id,
+        number: quiz.currentQuestion,
+        total: quiz.questions.length,
+        answered: quiz.answer[quiz.currentQuestion]
+    }
+}
+
 function saveAnswer(id, user, answer) {
     const quiz = quizes.get(id);
     const correct = quiz.questions[quiz.currentQuestion].options[answer].correct;
@@ -87,5 +102,6 @@ module.exports = {
     getUsers,
     getQuizDataForUser,
     saveAnswer,
-    getResults
+    getResults,
+    hasRemainingQuestions
 };
