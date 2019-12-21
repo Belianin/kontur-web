@@ -1,5 +1,6 @@
 const fs = require('fs');
-const defaultQuestion = JSON.parse(fs.readFileSync('default_quiz.json'));
+const loadedQuiz = JSON.parse(fs.readFileSync('default_quiz.json'));
+const defaultQuiz = new Quiz(loadedQuiz.title, loadedQuiz.questions);
 
 const QUIZ_STATE_CREATED = 0;
 const QUIZ_STATE_STARTED = 1;
@@ -20,7 +21,7 @@ const quizes = new Map();
 
 function createQuiz() {
     const id = quizes.size + 1;
-    quizes.set(id, defaultQuestion);
+    quizes.set(id, defaultQuiz);
     return id;
 }
 
@@ -85,7 +86,6 @@ module.exports = {
     nextQuestion,
     getUsers,
     getQuizDataForUser,
-    getNextQuestion,
     saveAnswer,
     getResults
 };
