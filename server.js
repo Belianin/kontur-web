@@ -35,7 +35,7 @@ app.post("/join", (req, res) => {
     // }
     // logic.addUserToQuiz(id, name);
     // setUserCookie(req, name);
-    res.redirect("/quiz");
+    res.redirect("/quiz.html");
 });
 
 
@@ -43,9 +43,9 @@ app.post("/join", (req, res) => {
 app.ws("/quiz", (ws, req) => {
     ws.on('message', (message) => {
         const type = JSON.parse(message).type;
-        
+
         ws.send(type);
-    }); 
+    });
 });
 
 
