@@ -41,11 +41,17 @@ ws.addEventListener("message", message => {
         case 'next':
             next(payload.question);
             break;
+        case 'end':
+            document.querySelector('task').innerHTML = '<h1>Готово!</h1>'
+            break;
     }
 });
 
 document.querySelector('.task').addEventListener('submit', e => {
     e.preventDefault();
+    ws.send(JSON.stringify({
+        answer: +document.querySelector('input[type="radio"]:checked').value
+    }))
 });
 
 // setTimeout(() => next({
