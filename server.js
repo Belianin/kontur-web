@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 // APP USE
 app.use(express.static("static"));
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(session({
     'secret': '1'
 }));
@@ -32,7 +33,9 @@ function isOwner(session) {
 /// HTTP
 app.post("/join", (req, res) => {
     const data = req.body;
-    let id = data.id;
+    console.log(data);
+    let id = parseInt(data.id);
+    console.log(id);
     const name = data.name;
     let role = "user";
     // if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
@@ -51,7 +54,8 @@ app.post("/join", (req, res) => {
 app.post("/create", (req, res) => {
     const id = logic.createQuiz();
     setUserCookie(req, 'admin', 'admin', id);
-    res.redirect('/admin.html');
+    // res.redirect('/admin.html');
+    res.send({id: id});
 })
 
 
