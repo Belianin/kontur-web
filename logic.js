@@ -1,6 +1,5 @@
 const fs = require('fs');
 const loadedQuiz = JSON.parse(fs.readFileSync('default_quiz.json'));
-const defaultQuiz = new Quiz(loadedQuiz.title, loadedQuiz.questions);
 
 const QUIZ_STATE_CREATED = 0;
 const QUIZ_STATE_STARTED = 1;
@@ -17,6 +16,7 @@ class Quiz {
     }
 }
 
+const defaultQuiz = new Quiz(loadedQuiz.title, loadedQuiz.questions);
 const quizes = new Map();
 
 function createQuiz() {
