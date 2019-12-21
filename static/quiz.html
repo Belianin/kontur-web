@@ -3,8 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-There is quiz!
+<header>
+    <h1>Quiz</h1>
+</header>
+<!--<div class="waiting">Waiting</div>-->
+<form class="task">
+    <h3 id="question"></h3>
+    <ul>
+        <li>
+            <label>
+                <span id="answer0"></span>
+                <input type="radio" name="answer" value="0">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span id="answer1"></span>
+                <input type="radio" name="answer" value="1">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span id="answer2"></span>
+                <input type="radio" name="answer" value="2">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span id="answer3"></span>
+                <input type="radio" name="answer" value="3">
+            </label>
+        </li>
+        <li>
+            <input type="submit" value="Ответить">
+        </li>
+    </ul>
+</form>
+<footer>
+    <div>Made by Natural Selection&trade; 2019</div>
+</footer>
 </body>
 </html>

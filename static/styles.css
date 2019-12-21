@@ -57,7 +57,7 @@ li:last-child {
     justify-content: flex-end;
 }
 
-nav {
+nav, .task, .waiting {
     display: flex;
     justify-content: center;
     align-items: center;
