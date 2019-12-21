@@ -16,10 +16,15 @@ app.use(session({
 
 // Logic
 
-function setUserCookie(req, name) {
+function setUserCookie(req, name, role, id) {
     req.session.name = name;
+    req.session.role = role;
+    req.session.id = id;
 }
 
+function isOwner(session) {
+    return session.role === "admin";
+}
 
 
 // Routing
@@ -27,25 +32,62 @@ function setUserCookie(req, name) {
 /// HTTP
 app.post("/join", (req, res) => {
     const data = req.body;
-    const id = data.id;
+    let id = data.id;
     const name = data.name;
-    // if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
-    //     res.sendStatus(404);
-    //     return
-    // }
-    // logic.addUserToQuiz(id, name);
-    // setUserCookie(req, name);
+    let role = "user";
+    if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
+        res.sendStatus(404);
+        return
+    }
+    logic.addUserToQuiz(id, name);
+    if (name === 'admin') {
+        role = 'admin';
+    }
+    setUserCookie(req, name, role, id);
     res.redirect("/quiz.html");
 });
 
 
+app.post("/create", (req, res) => {
+    const id = logic.createQuiz();
+    setUserCookie(req, 'admin', 'admin', id);
+    res.redirect('/admin.html');
+})
+
+
 /// Web-sockets
 app.ws("/quiz", (ws, req) => {
-    ws.on('message', (message) => {
-        const type = JSON.parse(message).type;
+    const session = req.session;
 
-        ws.send(type);
+    ws.on('connection', () => {
+        if (isOwner(session))
+            const data = logic.getQuizDataForOwner(session.id);
+        else
+            const data = logic.getQuizDataForUser(session.id);
+        
+        ws.send(data);
     });
+
+    ws.on('message', (message) => {
+        if (isOwner(session)) {
+            const type = JSON.parse(message).type;
+            if (type === 'next') {
+                logic.nextQuestion(session.id);
+                const data = logic.getQuizDataForUser(session.id);
+            } else if (type === 'end')
+                const data = logic.getResults(session.id);
+            else
+                const data = logic.getUsers(session.id);
+            ws.send(logic.getQuizDataForOwner(session.id));
+            expressWs.getWss().clients.forEach(client => {
+                if (client !== ws && client.readyState === WebSocket.OPEN)
+                    client.send(data);
+            });
+        } else {
+            const answer = JSON.parse(message).answer;
+            logic.saveAnswer(id, name, answer);
+        }
+    }); 
 });
 
 
