@@ -72,10 +72,12 @@ app.ws("/quiz", (ws, req) => {
 
     ws.on('message', (message) => {
         if (isOwner(session)) {
-            const type = JSON.parse(message).type;
+            let type = JSON.parse(message).type;
+            let smth = logic.getQuizDataForUser(session.key);
+            if (smth.number === smth.total)
+                type = "end";
             let data = "";
             let mes = "";
-            let type = '';
             if (type === 'next') {
                 logic.nextQuestion(session.key);
                 data = logic.getQuizDataForUser(session.key);
@@ -87,7 +89,7 @@ app.ws("/quiz", (ws, req) => {
                 type = "end";
             } else {
                 data = logic.getUsers(session.key);
-                mes = {type: "start", payload: data};\
+                mes = {type: "start", payload: data};
                 type = 'start';
             }
 
