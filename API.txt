@@ -1,0 +1,30 @@
+API
+
+GET - routing
+/ - главная
+
+
+/create - создание опроса
+in
+	{
+		"title": String,
+		"options": [Option(title: String, correct: Bool)]
+	}
+out
+	Set cookie
+	Redirect to quiz managing
+
+
+/join - подключение query id=int 
+in 
+	{
+		"id": Int,
+		"name": String
+	}
+out
+	Set cookie
+	Redirect to quiz
+
+
+WS
+
