@@ -51,7 +51,7 @@ app.post("/join", (req, res) => {
 app.post("/create", (req, res) => {
     const id = logic.createQuiz();
     setUserCookie(req, 'admin', 'admin', id);
-    res.send(id);
+    res.redirect('/admin.html');
 })
 
 
