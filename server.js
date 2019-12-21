@@ -20,7 +20,7 @@ app.use(session({
 function setUserCookie(req, name, role, id) {
     req.session.name = name;
     req.session.role = role;
-    req.session.id = id;
+    req.session.key = id;
 }
 
 function isOwner(session) {
@@ -65,9 +65,9 @@ app.ws("/quiz", (ws, req) => {
     let data = "";
     ws.on('connection', () => {
         if (isOwner(session))
-            data = logic.getQuizDataForOwner(session.id);
+            data = logic.getQuizDataForOwner(session.key);
         else
-            data = logic.getQuizDataForUser(session.id);
+            data = logic.getQuizDataForUser(session.key);
         
         ws.send(data);
     });
@@ -77,20 +77,20 @@ app.ws("/quiz", (ws, req) => {
             const type = JSON.parse(message).type;
             let data = "";
             if (type === 'next') {
-                logic.nextQuestion(session.id);
-                data = logic.getQuizDataForUser(session.id);
+                logic.nextQuestion(session.key);
+                data = logic.getQuizDataForUser(session.key);
             } else if (type === 'end')
-                data = logic.getResults(session.id);
+                data = logic.getResults(session.key);
             else
-                data = logic.getUsers(session.id);
-            ws.send(logic.getQuizDataForOwner(session.id));
+                data = logic.getUsers(session.key);
+            ws.send(logic.getQuizDataForOwner(session.key));
             expressWs.getWss().clients.forEach(client => {
                 if (client !== ws && client.readyState === WebSocket.OPEN)
                     client.send(data);
             });
         } else {
             const answer = JSON.parse(message).answer;
-            logic.saveAnswer(id, name, answer);
+            logic.saveAnswer(session.key, session.name, answer);
         }
     }); 
 });
