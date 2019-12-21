@@ -35,12 +35,17 @@ app.post("/join", (req, res) => {
     // }
     // logic.addUserToQuiz(id, name);
     // setUserCookie(req, name);
-    res.redirect("/quiz");
+    res.redirect("/quiz.html");
 });
 
 
 /// Web-sockets
 app.ws("/quiz", (ws, req) => {
+    ws.on('connection', () => {
+        const data = logic.getQuizDataForReq(req);
+        ws.send(data);
+    });
+
     ws.on('message', (message) => {
         const type = JSON.parse(message).type;
         
