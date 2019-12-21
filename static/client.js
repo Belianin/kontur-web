@@ -40,15 +40,18 @@ ws.addEventListener("message", message => {
             next(payload);
             break;
     }
-
 });
 
-setTimeout(() => next({
-    title: 'Question',
-    options: [
-        "green dog",
-        "hammer",
-        "cold coffee",
-        "natural selection"
-    ]
-}), 1000);
+document.querySelector('.task').addEventListener('submit', e => {
+    e.preventDefault();
+});
+
+// setTimeout(() => next({
+//     title: 'Question',
+//     options: [
+//         "green dog",
+//         "hammer",
+//         "cold coffee",
+//         "natural selection"
+//     ]
+// }), 1000);
