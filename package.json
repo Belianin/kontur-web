@@ -2,7 +2,7 @@
   "name": "kontur-web",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "static/client.js",
   "scripts": {
     "test": "test",
     "start": "node server.js"

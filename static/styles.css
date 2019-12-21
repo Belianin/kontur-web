@@ -23,11 +23,11 @@ footer {
 }
 
 ul {
+    list-style: none;
     padding: 0;
 }
 
-li {
-    list-style: none;
+.main li {
     margin-bottom: 32px;
 }
 
@@ -62,4 +62,22 @@ nav, .task, .waiting {
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + .answer-text {
+    /*border: black solid 1px;*/
+    background-color: palegreen;
+    border-radius: 5px;
+}
+
+.answer-text {
+    padding: 5px;
+}
+
+.answer {
+    margin: 10px 0;
 }
