@@ -89,7 +89,7 @@ app.ws("/quiz", (ws, req) => {
 
             // ws.send(JSON.stringify(logic.getQuizDataForUser(session.key))); // for Owner
             expressWs.getWss().clients.forEach(client => {
-                // if (client !== ws && client.readyState === WebSocket.OPEN)
+                if (client !== ws && client.readyState === WebSocket.OPEN)
                     client.send(JSON.stringify(mes));
             });
         } else {
