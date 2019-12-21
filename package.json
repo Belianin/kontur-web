@@ -1,0 +1,22 @@
+{
+  "name": "kontur-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Belianin/kontur-web.git"
+  },
+  "author": "Natural Selection",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Belianin/kontur-web/issues"
+  },
+  "homepage": "https://github.com/Belianin/kontur-web#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
