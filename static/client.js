@@ -12,6 +12,7 @@ function next(task) {
     document.querySelector('.task').style.display = 'flex';
     document.querySelector('#question').innerText = task.title;
     const answers = document.querySelector('#answers');
+    answers.innerHTML = '';
     for (const [i, answer] of task.options.entries()) {
         console.log(answer);
         const li = document.createElement('li');
