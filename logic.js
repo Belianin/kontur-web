@@ -101,6 +101,7 @@ module.exports = {
     nextQuestion,
     getUsers,
     getQuizDataForUser,
+    getQuizDataForOwner,
     saveAnswer,
     getResults,
     hasRemainingQuestions
