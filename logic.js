@@ -68,6 +68,11 @@ function getQuizDataForUser(id) {
     };
 }
 
+function hasRemainingQuestions(id) {
+    const quiz = quizes.get(id);
+    return quiz.currentQuestion < quiz.questions.length;
+}
+
 function getQuizDataForOwner(id) {
     const quiz = quizes.get(id);
     return {
