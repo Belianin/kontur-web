@@ -16,10 +16,15 @@ app.use(session({
 
 // Logic
 
-function setUserCookie(req, name) {
+function setUserCookie(req, name, role, id) {
     req.session.name = name;
+    req.session.role = role;
+    req.session.id = id;
 }
 
+function isOwner(session) {
+    return session.role === "admin";
+}
 
 
 // Routing
@@ -27,27 +32,42 @@ function setUserCookie(req, name) {
 /// HTTP
 app.post("/join", (req, res) => {
     const data = req.body;
-    const id = data.id;
+    let id = data.id;
     const name = data.name;
+    let role = "user";
     // if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
     //     res.sendStatus(404);
     //     return
     // }
     // logic.addUserToQuiz(id, name);
-    // setUserCookie(req, name);
+    if (id === 'admin') {
+        role = 'admin';
+        id = 1;
+    }
+    setUserCookie(req, name, role, id);
     res.redirect("/quiz.html");
 });
 
 
 /// Web-sockets
 app.ws("/quiz", (ws, req) => {
+    const session = req.session;
+
     ws.on('connection', () => {
-        const data = logic.getQuizDataForReq(req);
+        if (isOwner(session))
+            const data = logic.getQuizDataForOwner(session.id);
+        else
+            const data = logic.getQuizDataForUser(session.id);
+        
         ws.send(data);
     });
 
     ws.on('message', (message) => {
         const type = JSON.parse(message).type;
+        if (isOwner(session))
+            break
+        else
+            break
         
         ws.send(type);
     }); 
