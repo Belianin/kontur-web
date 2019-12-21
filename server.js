@@ -35,11 +35,11 @@ app.post("/join", (req, res) => {
     let id = data.id;
     const name = data.name;
     let role = "user";
-    // if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
-    //     res.sendStatus(404);
-    //     return
-    // }
-    // logic.addUserToQuiz(id, name);
+    if (!logic.checkQuizExists(id) || !logic.checkQuizAcceptsUsers(id)) {
+        res.sendStatus(404);
+        return
+    }
+    logic.addUserToQuiz(id, name);
     if (id === 'admin') {
         role = 'admin';
         id = 1;
@@ -63,13 +63,24 @@ app.ws("/quiz", (ws, req) => {
     });
 
     ws.on('message', (message) => {
-        const type = JSON.parse(message).type;
-        if (isOwner(session))
-            break
-        else
-            break
-        
-        ws.send(type);
+        if (isOwner(session)) {
+            const type = JSON.parse(message).type;
+            if (type === 'next') {
+                logic.nextQuestion(session.id);
+                const data = logic.getQuizDataForUser(session.id);
+            } else if (type === 'end')
+                const data = logic.getResults(session.id);
+            else
+                const data = logic.getUsers(session.id);
+            ws.send(logic.getQuizDataForOwner(session.id));
+            expressWs.getWss().clients.forEach(client => {
+                if (client !== ws && client.readyState === WebSocket.OPEN)
+                    client.send(data);
+            });
+        } else {
+            const answer = JSON.parse(message).answer;
+            logic.saveAnswer(answer, session);
+        }
     }); 
 });
 
