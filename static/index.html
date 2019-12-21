@@ -8,21 +8,24 @@
 </head>
 <body>
 <header>
-    <h1>Добро пожаловать в Quiz</h1>
+    <h1>Quiz</h1>
 </header>
 <nav>
     <ul>
+        <li class="logo"></li>
         <li>
-            <h3>Пройти тест</h3>
-            <label>
-                <input type="text" placeholder="Ключ">
-            </label>
-            <label>
-                <input type="text" placeholder="Ваше имя">
-            </label>
-            <div class="button-holder">
-                <input type="button" value="Подключиться">
-            </div>
+            <form id="connect">
+                <h3>Пройти тест</h3>
+                <label>
+                    <input type="text" name="key" placeholder="Ключ" required>
+                </label>
+                <label>
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                </label>
+                <div class="button-holder">
+                    <input type="submit" value="Подключиться">
+                </div>
+            </form>
         </li>
         <li class="or">
             <h5>
@@ -35,7 +38,7 @@
     </ul>
 </nav>
 <footer>
-    Made by Natural Selection&trade; 2019
+    <div>Made by Natural Selection&trade; 2019</div>
 </footer>
 </body>
 </html>

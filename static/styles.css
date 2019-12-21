@@ -17,6 +17,9 @@ footer {
     padding: 10px;
     border-top: black solid 1px;
     width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
 }
 
 ul {
@@ -38,6 +41,14 @@ li:last-child {
 
 .new {
     width: 100%;
+}
+
+.logo {
+    height: 100px;
+    background-image: url("logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .button-holder {
