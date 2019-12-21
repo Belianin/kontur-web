@@ -73,8 +73,7 @@ app.ws("/quiz", (ws, req) => {
     ws.on('message', (message) => {
         if (isOwner(session)) {
             let type = JSON.parse(message).type;
-            let smth = logic.getQuizDataForUser(session.key);
-            if (smth.number === smth.total)
+            if (!logic.hasRemainingQuestions(session.id))
                 type = "end";
             let data = "";
             let mes = "";
